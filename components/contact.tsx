@@ -1,12 +1,19 @@
-"use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Mail, Phone, Send } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { MapPin, Mail, Phone, Send } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,20 +21,20 @@ export default function Contact() {
     email: "",
     subject: "",
     message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // Reset form
     setFormData({
@@ -35,12 +42,12 @@ export default function Contact() {
       email: "",
       subject: "",
       message: "",
-    })
-    setIsSubmitting(false)
+    });
+    setIsSubmitting(false);
 
     // Show success message (in a real app, you'd want to handle this better)
-    alert("Message sent successfully! I'll get back to you soon.")
-  }
+    alert("Message sent successfully! I'll get back to you soon.");
+  };
 
   return (
     <section id="contact" className="py-20 w-full bg-muted/30">
@@ -52,10 +59,15 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="flex flex-col items-center text-center mb-12"
         >
-          <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mb-4">Contact</div>
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Get In Touch</h2>
+          <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mb-4">
+            Contact
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+            Get In Touch
+          </h2>
           <div className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
-            Have a project in mind or want to discuss potential opportunities? Let's talk!
+            Have a project in mind or want to discuss potential opportunities?
+            Let's talk!
           </div>
         </motion.div>
 
@@ -69,7 +81,9 @@ export default function Contact() {
             <Card>
               <CardHeader>
                 <CardTitle>Contact Information</CardTitle>
-                <CardDescription>Feel free to reach out through any of these channels</CardDescription>
+                <CardDescription>
+                  Feel free to reach out through any of these channels
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center">
@@ -83,7 +97,9 @@ export default function Contact() {
                   <Mail className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-muted-foreground">contact@shishirbhurtel.com.np</p>
+                    <p className="text-muted-foreground">
+                      contact@shishirbhurtel.com.np
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -100,7 +116,7 @@ export default function Contact() {
                     width="100%"
                     height="250"
                     style={{ border: 0, borderRadius: "0.5rem" }}
-                    allowFullScreen=""
+                    allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Kathmandu, Nepal Map"
@@ -119,7 +135,10 @@ export default function Contact() {
             <Card>
               <CardHeader>
                 <CardTitle>Send Message</CardTitle>
-                <CardDescription>Fill out the form below and I'll get back to you as soon as possible</CardDescription>
+                <CardDescription>
+                  Fill out the form below and I'll get back to you as soon as
+                  possible
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -179,7 +198,11 @@ export default function Contact() {
                       onChange={handleChange}
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isSubmitting}>
+                  <Button
+                    type="submit"
+                    className="w-full bg-primary hover:bg-primary/90"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
                       <>Sending Message...</>
                     ) : (
@@ -196,6 +219,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }
-
