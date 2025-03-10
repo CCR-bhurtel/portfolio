@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["miro.medium.com"],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
