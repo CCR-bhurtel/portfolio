@@ -47,7 +47,7 @@ export default function About() {
             </div>
             <div className="absolute -bottom-6 -right-6 bg-background rounded-lg p-4 shadow-lg border border-border">
               <div className="text-sm font-medium">Experience</div>
-              <div className="text-lg font-bold">3+ Years</div>
+              <div className="text-lg font-bold">5+ Years</div>
             </div>
           </motion.div>
 
@@ -62,7 +62,7 @@ export default function About() {
             <div className="space-y-4 text-muted-foreground">
               <p>
                 I'm Shishir Bhurtel, a passionate Full Stack Developer Engineer
-                with over 3 years of experience building and deploying web
+                with over 5 years of experience building and deploying web
                 applications. I specialize in JavaScript/TypeScript ecosystems
                 with frameworks like React, Next.js, and Node.js.
               </p>

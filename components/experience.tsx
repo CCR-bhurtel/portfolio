@@ -41,7 +41,7 @@ export default function Experience() {
     {
       title: "Freelance Web Developer",
       company: "Fiverr, Upwork",
-      period: "December 2021 - March 2024",
+      period: "December 2020 - March 2024",
       description:
         "Offered custom web development services on popular platforms like Fiverr and Upwork, specializing in Node.js-based software solutions.",
       responsibilities: [

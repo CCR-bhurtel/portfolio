@@ -19,6 +19,13 @@ export default function Projects() {
 
   const projects = [
     {
+      title: "Tranquil.AI - Your AI companion for mental wellness",
+      description:
+        "Journal your thoughts, track your mood, and receive personalized insights to improve your mental wellbeing.",
+      tags: ["Python", "Next.js", "AI", "LLMs"],
+      demo: "https://tranquil-ai.vercel.app",
+    },
+    {
       title: "ShareDirect - A peer to peer file transfer application",
       description:
         "A peer-to-peer file transfer application that allows users to share files directly between devices without uploading them to a server.",
