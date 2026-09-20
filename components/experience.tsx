@@ -1,123 +1,61 @@
-/* eslint-disable react/no-unescaped-entities */
-"use client"
-
-import { motion } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import SectionLabel from "@/components/section-label";
+import { roles, site } from "@/lib/content";
 
 export default function Experience() {
-  const experiences = [
-    {
-      title: "Full Stack Developer (Contract)",
-      company: "AppCentric (US)",
-      period: "December 2024 - Present",
-      description:
-        "Working on BackToIt and BidStruct projects, optimizing RESTful APIs, and developing user interfaces.",
-      responsibilities: [
-        "Optimized RESTful APIs, enhancing response times by 10% and reducing database query times by 8%",
-        "Integrated third-party services and implemented caching strategies",
-        "Developed and integrated React.js and Redux.js for government-based bidding platform",
-        "Contributed to creating an intuitive and user-friendly interface",
-      ],
-      technologies: ["Node.js", "Express.js", "React.js", "Redux.js", "MongoDB"],
-    },
-    {
-      title: "Full Stack Developer (Contract)",
-      company: "TijgerSoftware, Germany",
-      period: "April 2024 - September 2024",
-      description:
-        "Drove the organization to remarkable achievements, helping to accomplish multiple national-level projects in Netherlands and Germany.",
-      responsibilities: [
-        "Developed and maintained RESTful APIs using Express.js, Next.js, and MongoDB",
-        "Implemented secure authentication with OAuth and JWT",
-        "Integrated Stripe API for payment processing",
-        "Collaborated on React.js frontend development",
-        "Worked on national-level projects, including a government exam assigning platform in PayloadCMS",
-        "Implemented Domain-Centric Architectures",
-        "Improved backend architecture to handle more than 100K concurrent users",
-      ],
-      technologies: ["Express.js", "Next.js", "MongoDB", "OAuth", "JWT", "Stripe API", "React.js", "PayloadCMS"],
-    },
-    {
-      title: "Freelance Web Developer",
-      company: "Fiverr, Upwork",
-      period: "December 2020 - March 2024",
-      description:
-        "Offered custom web development services on popular platforms like Fiverr and Upwork, specializing in Node.js-based software solutions.",
-      responsibilities: [
-        "Completed over 75 tasks (orders) with over 40 unique clients worldwide",
-        "Gained 'Level 2' status on Fiverr and 'Top Rated' on Upwork in a short period",
-        "Consistently delivered high-quality results exceeding client expectations",
-        "Maintained transparency and open communication with clients",
-      ],
-      technologies: ["Node.js", "JavaScript", "Web Development"],
-    },
-  ]
-
   return (
-    <section id="experience" className="py-20 w-full">
-      <div className="container px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col items-center text-center mb-12"
-        >
-          <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm mb-4">Experience</div>
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Professional Journey</h2>
-          <div className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl">
-            My career path and the companies I've had the privilege to work with
-          </div>
-        </motion.div>
-
-        <div className="grid gap-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+    <section id="experience" className="bg-paper px-6 pb-[110px] sm:px-8">
+      <div className="mx-auto max-w-page border-t-[1.5px] border-rule pt-[110px]">
+        <div className="mb-11 flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <SectionLabel num="04">Experience</SectionLabel>
+            <h2
+              data-rv="d1"
+              className="text-[clamp(34px,4.2vw,58px)] font-medium leading-none tracking-[-.03em]"
             >
-              <Card>
-                <CardHeader>
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                      <CardTitle className="text-xl md:text-2xl">{exp.title}</CardTitle>
-                      <CardDescription className="text-base md:text-lg">
-                        {exp.company} • <span className="text-primary">{exp.period}</span>
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p>{exp.description}</p>
-                  <div>
-                    <h4 className="font-medium mb-2">Key Responsibilities:</h4>
-                    <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                      {exp.responsibilities.map((resp, i) => (
-                        <li key={i}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="pt-2">
-                    <h4 className="font-medium mb-2">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech, i) => (
-                        <Badge key={i} variant="secondary">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+              A six-year ledger.
+            </h2>
+          </div>
+          <a
+            data-rv="d2"
+            href={site.resume}
+            className="border-b-[1.5px] border-current pb-0.5 font-inter text-[15px] font-medium transition-colors hover:text-accent"
+          >
+            Download resume ↗
+          </a>
         </div>
+
+        <ol data-rv className="border-b border-rule">
+          {roles.map((r) => (
+            <li
+              key={r.period}
+              className="-ml-5 grid items-start gap-x-8 gap-y-4 border-l-2 border-t border-l-transparent border-t-rule py-[34px] pl-5 transition-colors duration-200 hover:border-l-accent hover:bg-white sm:grid-cols-[150px_minmax(0,1fr)]"
+            >
+              <div className="font-mono text-xs leading-[1.7] tracking-[.12em] text-muted">
+                <span className="block font-serif text-[44px] leading-[.9] tracking-normal text-ink">
+                  {r.from}
+                </span>
+                {r.period}
+              </div>
+              <div>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+                  <h3 className="text-[clamp(22px,2.4vw,30px)] font-medium leading-[1.1] tracking-[-.025em]">
+                    {r.role}
+                  </h3>
+                  <span className="font-mono text-[11px] uppercase tracking-[.14em] text-accent">
+                    {r.org}
+                  </span>
+                </div>
+                <p className="mt-3.5 max-w-[720px] font-inter text-base leading-[1.6] text-muted">
+                  {r.body}
+                </p>
+                <p className="mt-3.5 font-mono text-[11.5px] uppercase leading-relaxed tracking-[.1em]">
+                  {r.tech.join(" · ")}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
-  )
+  );
 }
-

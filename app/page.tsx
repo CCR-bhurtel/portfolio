@@ -1,69 +1,36 @@
+import Nav from "@/components/nav";
 import Hero from "@/components/hero";
 import About from "@/components/about";
+import Work from "@/components/work";
+import Toolkit from "@/components/toolkit";
 import Experience from "@/components/experience";
-import Projects from "@/components/projects";
-import Skills from "@/components/skills";
-import Education from "@/components/education";
-import BlogPreview from "@/components/blog-preview";
+import Writing from "@/components/writing";
+import Faq from "@/components/faq";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-import { ThemeProvider } from "@/components/theme-provider";
-import type { Metadata } from "next";
-import Nav from "@/components/nav";
-
-export const metadata: Metadata = {
-  title: "Shishir Bhurtel - Full Stack Developer & DevOps Engineer",
-  description:
-    "Portfolio of Shishir Bhurtel, a Full Stack Developer and DevOps Engineer specializing in Node.js, React, and cloud technologies.",
-  keywords: [
-    "Shishir Bhurtel",
-    "Full Stack Developer",
-    "Node.js Developer",
-    "React Developer",
-    "DevOps Engineer",
-    "Web Development",
-    "Portfolio",
-  ],
-  authors: [{ name: "Shishir Bhurtel" }],
-  creator: "Shishir Bhurtel",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://www.shishirbhurtel.com.np",
-    title: "Shishir Bhurtel - Full Stack Developer & DevOps Engineer",
-    description:
-      "Portfolio of Shishir Bhurtel, a Full Stack Developer and DevOps Engineer specializing in Node.js, React, and cloud technologies.",
-    siteName: "Shishir Bhurtel Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Shishir Bhurtel - Full Stack Developer & DevOps Engineer",
-    description:
-      "Portfolio of Shishir Bhurtel, a Full Stack Developer and DevOps Engineer specializing in Node.js, React, and cloud technologies.",
-    creator: "@shishirbhurtel",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+import { structuredData } from "@/lib/structured-data";
 
 export default function Home() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <main className="flex min-h-screen flex-col items-center">
-        {/* <Nav /> */}
-
+    <div className="min-h-screen rail:pl-[86px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+        }}
+      />
+      <Nav />
+      <main>
         <Hero />
         <About />
+        <Work />
+        <Toolkit />
         <Experience />
-        <Skills />
-        <Projects />
-        <Education />
-        <BlogPreview />
+        <Writing />
+        <Faq />
         <Contact />
-        <Footer />
       </main>
-    </ThemeProvider>
+      <Footer />
+    </div>
   );
 }

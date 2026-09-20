@@ -2,122 +2,146 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 157 70% 43%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 157 70% 43%;
-  }
+:root {
+  --accent: #2f6bff;
+  --accent-soft: #8fb2ff;
+  /* Hero art keeps the design's 1440×900 stage, scaled with the viewport but
+     never so small that the network stops reading on phones. */
+  --hero-w: clamp(760px, 100vw, 1440px);
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-body {
-  /*background-color: var(--background);
-  color: var(--text);*/
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--primary) 80%, black);
-}
-
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Animation for hover effects */
-a,
-button {
-  transition: all 0.2s ease-in-out;
+body {
+  margin: 0;
+  background: #f7f7f4;
+  color: #0b0d0e;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
 }
 
-/* Custom selection color */
-::selection {
-  background: var(--primary);
-  color: var(--background);
+/* Anchored sections clear the fixed top bar on small screens */
+section[id] {
+  scroll-margin-top: 60px;
 }
-
-/* Gradient overlay for video background */
-.video-overlay {
-  background: linear-gradient(to bottom, rgba(42, 54, 59, 0.7), rgba(42, 54, 59, 0.9));
-}
-
-/* Animated underline effect for navigation links */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -4px;
-  left: 0;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-.bg-grid-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
+@media (min-width: 1100px) {
+  section[id] {
+    scroll-margin-top: 0;
   }
-  50% {
-    transform: translateY(-20px);
+}
+
+::selection {
+  background: var(--accent);
+  color: #f7f7f4;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Scroll reveal — scroll-driven where supported, a one-off entrance elsewhere */
+[data-rv] {
+  animation: fadeUp 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+[data-rv~="d1"] {
+  animation-delay: 0.1s;
+}
+[data-rv~="d2"] {
+  animation-delay: 0.2s;
+}
+@supports (animation-timeline: view()) {
+  [data-rv] {
+    animation-timeline: view();
+    animation-range: entry 0% cover 26%;
+    animation-delay: 0s !important;
+  }
+}
+
+.marquee {
+  animation: marquee 38s linear infinite;
+}
+.spin-slow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spinSlow 40s linear infinite;
+}
+.traveler {
+  offset-rotate: 0deg;
+  opacity: 0;
+  animation: travel linear infinite;
+}
+
+.project-dialog {
+  animation: fadeUp 0.25s ease both;
+}
+.project-dialog::backdrop {
+  background: rgba(11, 13, 14, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.rail-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #2c3237 transparent;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes travel {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
   }
   100% {
-    transform: translateY(0px);
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
-

@@ -1,50 +1,67 @@
 import type React from "react";
 import "./globals.css";
-import { Inter } from "next/font/google";
-import type { Metadata } from "next";
+import { Geist, Geist_Mono, Inter, Instrument_Serif } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { keywords, site } from "@/lib/content";
 
-const inter = Inter({ subsets: ["latin"] });
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.shishirbhurtel.com.np"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "Shishir Bhurtel - Full Stack Developer r",
-    template: "%s | Shishir Bhurtel",
+    default: site.title,
+    template: `%s | ${site.name}`,
   },
-  description:
-    "Portfolio of Shishir Bhurtel, a Full Stack Developer  specializing in modern web technologies and cloud solutions.",
-  keywords: [
-    "Shishir Bhurtel",
-    "Full Stack Developer",
-    "DevOps Engineer",
-    "Web Development",
-    "React",
-    "Node.js",
-    "Next.js",
-    "Portfolio",
-  ],
-  authors: [{ name: "Shishir Bhurtel" }],
-  creator: "Shishir Bhurtel",
+  description: site.description,
+  keywords,
+  applicationName: `${site.name} — Portfolio`,
+  category: "technology",
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
+    type: "profile",
+    firstName: "Shishir",
+    lastName: "Bhurtel",
     locale: "en_US",
-    url: "https://www.shishirbhurtel.com.np",
-    title: "Shishir Bhurtel - Full Stack Developer & DevOps Engineer",
-    description:
-      "Portfolio of Shishir Bhurtel, a Full Stack Developer and DevOps Engineer specializing in modern web technologies and cloud solutions.",
-    siteName: "Shishir Bhurtel Portfolio",
+    url: site.url,
+    title: site.title,
+    description: site.description,
+    siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shishir Bhurtel - Full Stack Developer & DevOps Engineer",
-    description:
-      "Portfolio of Shishir Bhurtel, a Full Stack Developer and DevOps Engineer specializing in modern web technologies and cloud solutions.",
-    creator: "@shishirbhurtel",
+    title: site.title,
+    description: site.description,
+    creator: site.twitter,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0D0E",
 };
 
 export default function RootLayout({
@@ -53,12 +70,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="theme-color" content="#0078FF" />
-      </head>
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${inter.variable} ${instrument.variable}`}
+    >
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

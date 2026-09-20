@@ -1,229 +1,91 @@
-"use client";
+import HeroNetwork from "@/components/hero-network";
+import { focusAreas, stack } from "@/lib/content";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import {
-  Facebook,
-  Github,
-  Linkedin,
-  Briefcase,
-  ChevronDown,
-  Server,
-  Globe,
-  Database,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+const ART_MASK =
+  "radial-gradient(ellipse 50% 52% at 50% 34%,#000 0%,#000 55%,rgba(0,0,0,.6) 78%,rgba(0,0,0,.2) 100%)";
 
 export default function Hero() {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const rotatingTexts = [
-    "Backend Developer",
-    "Node.js Expert",
-    "React Developer",
-    "Golang Enthusiast",
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setCurrentTextIndex(
-          (prevIndex) => (prevIndex + 1) % rotatingTexts.length
-        );
-        setIsVisible(true);
-      }, 500);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [rotatingTexts]);
-
-  const socialLinks = [
-    {
-      name: "Facebook",
-      icon: <Facebook className="h-5 w-5" />,
-      href: "https://www.facebook.com/logicmaestro403/",
-    },
-    {
-      name: "GitHub",
-      icon: <Github className="h-5 w-5" />,
-      href: "https://github.com/CCR-bhurtel",
-    },
-    {
-      name: "LinkedIn",
-      icon: <Linkedin className="h-5 w-5" />,
-      href: "https://www.linkedin.com/in/shishir-bhurtel-54974b1b7/",
-    },
-  ];
-
-  const freelanceLinks = [
-    {
-      name: "Upwork",
-      href: "https://www.upwork.com/freelancers/~01057ddfd5f75dcab7",
-      className: "bg-[#6FDA44] hover:bg-[#6FDA44]/90",
-    },
-    {
-      name: "Fiverr",
-      href: "https://www.fiverr.com/s/jjG8lZV",
-      className: "bg-[#1DBF73] hover:bg-[#1DBF73]/90",
-    },
-  ];
-
-  const skills = [
-    { name: "Node.js", icon: <Server className="h-6 w-6" /> },
-    { name: "React", icon: <Globe className="h-6 w-6" /> },
-    { name: "Golang", icon: <Server className="h-6 w-6" /> },
-    { name: "Postgres", icon: <Database className="h-6 w-6" /> },
-  ];
-
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background to-background/80"
-    >
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
-      </div>
-
-      <div className="relative z-10 container mx-auto px-4 py-24 min-h-screen flex flex-col justify-center">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center lg:text-left"
+    <>
+      <section id="top" className="relative overflow-hidden bg-ink">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[calc(var(--hero-w)*.625)] w-[var(--hero-w)] -translate-x-1/2">
+          <div
+            className="absolute inset-0"
+            style={{ maskImage: ART_MASK, WebkitMaskImage: ART_MASK }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-              Hello, I&apos;m{" "}
-              <span className="text-[#1DBF73]">SHISHIR BHURTEL</span>
-            </h1>
-            <div className="h-12 mb-6">
-              <AnimatePresence mode="wait">
-                {isVisible && (
-                  <motion.p
-                    key={currentTextIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-xl md:text-2xl text-muted-foreground"
-                  >
-                    {rotatingTexts[currentTextIndex]}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <p className="text-lg text-muted-foreground mb-8">
-              Crafting scalable web solutions with modern technologies and best
-              practices.
-            </p>
-
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="flex items-center bg-muted/50 rounded-full px-4 py-2"
-                >
-                  {skill.icon}
-                  <span className="ml-2 text-sm font-medium">{skill.name}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-8">
-              {freelanceLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "inline-flex items-center justify-center px-6 py-3 rounded-lg text-white font-medium transition-colors",
-                    link.className
-                  )}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                >
-                  <Briefcase className="w-5 h-5 mr-2" />
-                  Hire me on {link.name}
-                </motion.a>
-              ))}
-            </div>
-
-            <div className="flex justify-center lg:justify-start space-x-4">
-              {socialLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-[#1DBF73] transition-colors p-2 bg-muted/50 rounded-full"
-                  aria-label={link.name}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
-                >
-                  {link.icon}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative mx-auto w-full max-w-md"
-          >
-            <div className="relative w-full aspect-square rounded-full overflow-hidden  shadow-xl">
-              <Image
-                src="/images/developer_coding_front.png"
-                alt="Shishir Bhurtel"
-                layout="fill"
-                objectFit="contain"
-                priority
-                className="rounded-full"
-              />
-            </div>
-            <motion.div
-              className="absolute -bottom-6 -right-6 bg-[#1DBF73] rounded-lg p-4 shadow-lg"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <div className="text-sm font-medium text-white">Currently</div>
-              <div className="text-lg font-bold text-white">Open to Work</div>
-            </motion.div>
-          </motion.div>
+            <HeroNetwork />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,13,14,.85),rgba(11,13,14,.2)_22%,rgba(11,13,14,.2)_34%,rgba(11,13,14,.92)_48%,#0B0D0E_62%)]" />
         </div>
-      </div>
 
-      <Link href="#projects">
-        <motion.div
-          className="absolute z-[999] bottom-5 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-        >
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-muted-foreground hover:text-[#1DBF73]"
-          >
-            <ChevronDown className="h-8 w-8" />
-          </Button>
-        </motion.div>
-      </Link>
-    </section>
+        <div className="relative px-6 pb-14 pt-[calc(var(--hero-w)*.288)] text-center sm:px-14">
+          <div className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[.18em] text-ash sm:text-xs">
+            <span className="inline-block h-2 w-2 bg-accent" />
+            AI engineer · Full-stack developer
+            <span className="hidden sm:inline">· Remote</span>
+          </div>
+          <h1 className="mx-auto mt-5 max-w-[1100px] text-balance text-[clamp(38px,5.85vw,84px)] font-medium leading-[.98] tracking-[-.03em] text-paper">
+            I build AI systems
+            <br className="hidden sm:block" /> and products that ship.
+          </h1>
+          <p className="mx-auto mt-[22px] max-w-[660px] font-inter text-[clamp(16px,1.4vw,19px)] leading-normal text-ash">
+            I&rsquo;m Shishir Bhurtel. I build LLM agents and RAG pipelines that
+            hold up with real users — and the full-stack applications around
+            them: Python and FastAPI or Node.js and NestJS backends, React and
+            Next.js front ends. Six years shipping production software.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <a
+              href="#work"
+              className="whitespace-nowrap rounded bg-accent px-6 py-[15px] font-inter text-[15px] font-medium text-paper transition-colors hover:bg-paper hover:text-ink"
+            >
+              See the work ↗
+            </a>
+            <a
+              href="#contact"
+              className="whitespace-nowrap rounded border-[1.5px] border-paper/30 px-[22px] py-[15px] font-inter text-[15px] font-medium text-paper transition-colors hover:border-paper"
+            >
+              Tell me what you&rsquo;re building →
+            </a>
+          </div>
+          <ul className="mt-10 flex flex-wrap justify-center gap-x-10 gap-y-3 border-t-[1.5px] border-paper/15 pt-5 font-mono text-xs uppercase tracking-[.14em] text-ash">
+            {focusAreas.map((area, i) => (
+              <li key={area}>
+                <span className="mr-3 font-medium text-paper">
+                  {String(i + 1).padStart(2, "0")} /
+                </span>
+                {area}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        aria-label="Tech stack"
+        className="overflow-hidden border-t-[1.5px] border-paper/10 bg-ink py-[30px]"
+      >
+        {/* The list is doubled so the -50% marquee loop is seamless */}
+        <div className="marquee flex w-max items-center font-mono text-[13px] uppercase tracking-[.14em] text-smoke">
+          {[false, true].map((duplicate) => (
+            <ul
+              key={String(duplicate)}
+              aria-hidden={duplicate}
+              className="flex items-center"
+            >
+              {stack.map((s) => (
+                <li
+                  key={s}
+                  className="mr-14 flex items-center gap-3.5 whitespace-nowrap"
+                >
+                  <span className="inline-block h-[5px] w-[5px] bg-accent" />
+                  {s}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
