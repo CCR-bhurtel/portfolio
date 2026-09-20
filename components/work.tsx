@@ -138,6 +138,25 @@ export default function Work() {
           <p className="mt-4 max-w-[640px] font-inter text-[19px] leading-normal text-muted">
             {active.tagline}
           </p>
+          {active.links.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              {active.links.map((l, i) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-2.5 rounded border-[1.5px] px-[22px] py-3.5 font-inter text-[15px] font-medium ${
+                    i === 0
+                      ? "border-accent bg-accent text-paper"
+                      : "border-rule bg-white text-ink"
+                  }`}
+                >
+                  {l.label} ↗
+                </a>
+              ))}
+            </div>
+          )}
 
           <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-8 border-t-[1.5px] border-rule pt-6">
             <div>
@@ -181,26 +200,6 @@ export default function Work() {
               </li>
             ))}
           </ul>
-
-          {active.links.length > 0 && (
-            <div className="mt-7 flex flex-wrap gap-3">
-              {active.links.map((l, i) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2.5 rounded border-[1.5px] px-[22px] py-3.5 font-inter text-[15px] font-medium ${
-                    i === 0
-                      ? "border-accent bg-accent text-paper"
-                      : "border-rule bg-white text-ink"
-                  }`}
-                >
-                  {l.label} ↗
-                </a>
-              ))}
-            </div>
-          )}
         </div>
       </dialog>
     </section>
