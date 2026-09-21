@@ -19,6 +19,17 @@
   { "q": "What does he charge per hour?", "expect": "answer", "any": ["not publish", "doesn't publish", "does not publish", "email"], "none": ["$"] },
   { "q": "What RAG experience does he have?", "expect": "answer", "any": ["pgvector", "retrieval"] },
 
+  { "q": "What AI agents has he built?", "expect": "answer", "any": ["langgraph", "spacebrain"],
+    "history": [{ "role": "user", "text": "Is he available for contract work?" }, { "role": "assistant", "text": "Yes, Shishir is open to work and available for contract work." }] },
+  { "q": "Tell me about Liftrava", "expect": "answer", "any": ["offline", "fitness"],
+    "history": [{ "role": "user", "text": "Is he available for contract work?" }, { "role": "assistant", "text": "Yes, Shishir is open to work and available for contract work." }] },
+  { "q": "Which databases has he worked with?", "expect": "answer", "any": ["postgres", "mongodb"],
+    "history": [{ "role": "user", "text": "Where did he study?" }, { "role": "assistant", "text": "Shishir studied at Patan Multiple Campus." }] },
+  { "q": "What did he use for monitoring there?", "expect": "answer", "all": ["prometheus"],
+    "history": [{ "role": "user", "text": "Tell me about the Penvoke project" }, { "role": "assistant", "text": "Penvoke is a social platform for writers; Shishir built its entire backend." }] },
+  { "q": "And what stack did it use?", "expect": "answer", "any": ["next.js", "python"],
+    "history": [{ "role": "user", "text": "What is Tranquil.AI?" }, { "role": "assistant", "text": "Tranquil.AI is an AI companion for mental wellness." }] },
+
   { "q": "How old is Shishir?", "expect": "fallback" },
   { "q": "Is he married?", "expect": "fallback" },
   { "q": "What is his phone number?", "expect": "fallback" },

@@ -3,6 +3,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { Search } from "@upstash/search";
 import { ASK } from "@/lib/ask-config";
+import { askSuggestions } from "@/lib/content";
 import {
   hashText,
   normalizeQuestion,
@@ -159,7 +160,7 @@ export async function generateAnswer(
 }
 
 export async function answerQuestion(
-  { question, history }: AskBody,
+  { question, history: fullHistory }: AskBody,
   visitorId: string | null, // null skips the per-visitor limits (eval, ingest)
   { skipCache = false } = {} // the eval measures the model, not the cache
 ): Promise<AskResult> {
@@ -183,6 +184,13 @@ export async function answerQuestion(
   const canned = smallTalk(normalized);
   if (canned) return { answer: canned, sources: [], via: "smalltalk" };
 
+  // A suggestion chip is a complete question wherever it is clicked: treat it
+  // as a first question, so it keeps its cached answer mid-conversation.
+  const isSuggestion = askSuggestions.some(
+    (s) => normalizeQuestion(s) === normalized
+  );
+  const history = isSuggestion ? [] : fullHistory;
+
   // Exact-match cache only. Upstash Search scores are rank-normalised (the best
   // hit is always ~1.0), so they cannot tell a paraphrase from a different
   // question, and a "semantic" cache would serve wrong answers.
@@ -199,16 +207,25 @@ export async function answerQuestion(
     if (hit) return { ...hit, via: "cache" };
   }
 
-  // Pronouns in a follow-up ("what stack did it use?") need the previous question
+  // A follow-up is searched twice: on its own, because it is usually a new
+  // topic, and joined to the previous question, because "what did it use?"
+  // means nothing alone. Searching only the joined text let the previous
+  // topic crowd out the new one. Results are interleaved, own-question first.
   const lastQuestion = [...history].reverse().find((t) => t.role === "user");
-  const retrievalQuery = lastQuestion
-    ? `${lastQuestion.text} ${question}`
-    : question;
-  const retrieve = () =>
-    withTimeout(
-      kb.search({ query: retrievalQuery, limit: ASK.topK, inputEnrichment: false }),
+  const search = (query: string, limit: number) =>
+    kb.search({ query, limit, inputEnrichment: false });
+  const retrieve = async () => {
+    const [own, joined] = await withTimeout(
+      Promise.all([
+        search(question, ASK.topK),
+        lastQuestion ? search(`${lastQuestion.text} ${question}`, 2) : [],
+      ]),
       "retrieval"
     );
+    const merged = [own[0], joined[0], own[1], joined[1], ...own.slice(2)];
+    const seen = new Set<string>();
+    return merged.filter((m) => m && !seen.has(m.id) && seen.add(m.id));
+  };
   let matches = await retrieve();
   // Hybrid search over a populated index always returns something. Nothing
   // means the index is briefly unavailable (seen right after a re-ingest), so

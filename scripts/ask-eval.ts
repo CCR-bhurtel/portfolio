@@ -15,6 +15,7 @@ type Case = {
   any?: string[]; // at least one must appear
   all?: string[]; // every one must appear
   none?: string[];
+  history?: { role: "user" | "assistant"; text: string }[]; // asked as a follow-up
 };
 
 async function main() {
@@ -27,7 +28,7 @@ async function main() {
   let paid = 0;
 
   for (const c of cases as Case[]) {
-    const r = await answerQuestion({ question: c.q, history: [] }, null, { skipCache: true });
+    const r = await answerQuestion({ question: c.q, history: c.history ?? [] }, null, { skipCache: true });
     const text = r.answer.toLowerCase();
     const isFallback = r.answer === FALLBACK_ANSWER;
 
@@ -51,7 +52,7 @@ async function main() {
     }
     if (problems.length) failed++;
     console.log(
-      `${problems.length ? "FAIL" : "ok  "} [${r.via.padEnd(8)} ${(r.topScore ?? 0).toFixed(3)}] ${c.q}` +
+      `${problems.length ? "FAIL" : "ok  "} [${r.via.padEnd(8)} ${(r.topScore ?? 0).toFixed(3)}] ${c.history ? "(follow-up) " : ""}${c.q}` +
         (problems.length ? `\n       ${problems.join("; ")}\n       -> ${r.answer}` : "")
     );
   }
