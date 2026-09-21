@@ -7,7 +7,9 @@
   --accent-soft: #8fb2ff;
   /* Hero art keeps the design's 1440×900 stage, scaled with the viewport but
      never so small that the network stops reading on phones. */
-  --hero-w: clamp(760px, 100vw, 1440px);
+  /* Also tied to the viewport height, so short laptop screens keep the ask bar
+     near the fold instead of pushing it a full screen down. */
+  --hero-w: clamp(760px, min(100vw, 165vh), 1440px);
 }
 
 html {

@@ -1,4 +1,6 @@
+import Ask from "@/components/ask";
 import HeroNetwork from "@/components/hero-network";
+import { askConfigured } from "@/lib/ask-config";
 import { focusAreas, stack } from "@/lib/content";
 
 const ART_MASK =
@@ -18,22 +20,24 @@ export default function Hero() {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,13,14,.85),rgba(11,13,14,.2)_22%,rgba(11,13,14,.2)_34%,rgba(11,13,14,.92)_48%,#0B0D0E_62%)]" />
         </div>
 
-        <div className="relative px-6 pb-14 pt-[calc(var(--hero-w)*.288)] text-center sm:px-14">
+        <div className="relative px-6 pb-14 pt-[calc(var(--hero-w)*.272)] text-center sm:px-14">
           <div className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[.18em] text-ash sm:text-xs">
             <span className="inline-block h-2 w-2 bg-accent" />
             AI engineer · Full-stack developer
             <span className="hidden sm:inline">· Remote</span>
           </div>
-          <h1 className="mx-auto mt-5 max-w-[1100px] text-balance text-[clamp(38px,5.85vw,84px)] font-medium leading-[.98] tracking-[-.03em] text-paper">
+          <h1 className="mx-auto mt-5 max-w-[1100px] text-balance text-[clamp(38px,min(5.85vw,10vh),84px)] font-medium leading-[.98] tracking-[-.03em] text-paper">
             I build AI systems
             <br className="hidden sm:block" /> and products that ship.
           </h1>
-          <p className="mx-auto mt-[22px] max-w-[660px] font-inter text-[clamp(16px,1.4vw,19px)] leading-normal text-ash">
+          <p className="mx-auto mt-[22px] max-w-[760px] font-inter text-[clamp(16px,1.4vw,19px)] leading-normal text-ash">
             I&rsquo;m Shishir Bhurtel. I build LLM agents and RAG pipelines that
             hold up with real users — and the full-stack applications around
             them: Python and FastAPI or Node.js and NestJS backends, React and
             Next.js front ends. Six years shipping production software.
           </p>
+          {/* Hidden until its keys are set, so the hero never shows a dead chat */}
+          {askConfigured() && <Ask />}
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a
               href="#work"

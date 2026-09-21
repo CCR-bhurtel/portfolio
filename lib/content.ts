@@ -13,7 +13,7 @@ export const site = {
   email: "bhurtelshishir@gmail.com",
   location: "Kathmandu, Nepal",
   timezone: "UTC+5:45",
-  resume: "/resume.pdf",
+  resume: "/resume_shishir.pdf",
   twitter: "@shishirbhurtel",
 };
 
@@ -60,6 +60,15 @@ export const railLinks = [
 ];
 
 // AI first, then the application work: two of each
+// Starter questions for the hero chat. The ingest script warms these into the
+// answer cache, so the most-clicked questions never reach the model.
+export const askSuggestions = [
+  "What AI agents has he built?",
+  "What's his backend stack?",
+  "How does he keep LLM features reliable?",
+  "Is he available for contract work?",
+];
+
 export const focusAreas = [
   "LLM agents & RAG",
   "Evals & tracing",
