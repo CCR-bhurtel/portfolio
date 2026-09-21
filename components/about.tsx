@@ -20,7 +20,8 @@ export default function About() {
             data-rv="d2"
             className="mt-6 max-w-[560px] font-inter text-[17px] leading-[1.6] text-muted"
           >
-            Six years shipping production software — Node.js, NestJS and React
+            3+ years of industry experience and 2 years of freelance work —
+            Node.js, NestJS and React
             first, now Python and FastAPI alongside them — with most of my time
             on LLM applications: LangGraph agents, retrieval over real customer
             data with pgvector, tool calling, Celery pipelines, and the evals

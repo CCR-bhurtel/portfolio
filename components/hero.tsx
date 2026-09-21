@@ -34,7 +34,7 @@ export default function Hero() {
             I&rsquo;m Shishir Bhurtel. I build LLM agents and RAG pipelines that
             hold up with real users — and the full-stack applications around
             them: Python and FastAPI or Node.js and NestJS backends, React and
-            Next.js front ends. Six years shipping production software.
+            Next.js front ends. 3+ years in industry and 2 years freelancing.
           </p>
           {/* Hidden until its keys are set, so the hero never shows a dead chat */}
           {askConfigured() && <Ask />}

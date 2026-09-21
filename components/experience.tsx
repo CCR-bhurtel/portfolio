@@ -12,7 +12,7 @@ export default function Experience() {
               data-rv="d1"
               className="text-[clamp(34px,4.2vw,58px)] font-medium leading-none tracking-[-.03em]"
             >
-              A six-year ledger.
+              The ledger so far.
             </h2>
           </div>
           <a

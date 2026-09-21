@@ -7,7 +7,7 @@ export const site = {
   jobTitle: "AI Engineer & Full-Stack Developer",
   title: "Shishir Bhurtel — AI Engineer & Full-Stack Developer · LLM Agents, RAG, Web Apps",
   description:
-    "AI engineer and full-stack developer. I build LLM agents and RAG pipelines that hold up with real users, and the web applications around them — Python and FastAPI or Node.js and NestJS backends, React and Next.js front ends. Six years shipping production software for teams in the US and Europe.",
+    "AI engineer and full-stack developer. I build LLM agents and RAG pipelines that hold up with real users, and the web applications around them — Python and FastAPI or Node.js and NestJS backends, React and Next.js front ends. 3+ years of industry experience and 2 years of freelance work, for teams in the US and Europe.",
   tagline:
     "AI engineer and full-stack developer. I build LLM agents, RAG pipelines and the web applications around them.",
   email: "bhurtelshishir@gmail.com",
@@ -101,7 +101,7 @@ export const stack = [
 ];
 
 export const stats = [
-  { v: "Since 2020", t: "Building and deploying production software" },
+  { v: "3+ yrs", t: "Industry experience, plus 2 years of freelance work" },
   { v: "75+", t: "Projects delivered for 40+ clients worldwide" },
   { v: "Top Rated", t: "On Upwork · Level 2 on Fiverr" },
   {
@@ -383,18 +383,18 @@ export const roles = [
     tech: ["Node.js", "Express.js", "React.js", "Redux.js", "MongoDB"],
   },
   {
-    from: "2024",
+    from: "2023",
     role: "Full Stack Developer (Contract)",
     org: "TijgerSoftware · Germany",
-    period: "Apr — Sep 2024",
+    period: "Dec 2023 — Dec 2024",
     body: "Delivered national-level projects in the Netherlands and Germany, including a government exam assignment platform. Built APIs in Express and Next.js, OAuth and JWT authentication, Stripe payments, and improved the backend architecture to handle more than 100K concurrent users.",
     tech: ["Express.js", "Next.js", "MongoDB", "PayloadCMS", "OAuth", "Stripe"],
   },
   {
-    from: "2020",
+    from: "2021",
     role: "Freelance Web Developer",
     org: "Upwork · Fiverr",
-    period: "Dec 2020 — Mar 2024",
+    period: "May 2021 — Jun 2023",
     body: "Completed over 75 orders for more than 40 clients worldwide, reaching Level 2 on Fiverr and Top Rated on Upwork — mostly Node.js software, delivered directly with the client.",
     tech: ["Node.js", "JavaScript", "React", "MongoDB"],
   },
