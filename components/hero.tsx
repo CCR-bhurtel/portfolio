@@ -30,11 +30,9 @@ export default function Hero() {
             I build AI systems
             <br className="hidden sm:block" /> and products that ship.
           </h1>
-          <p className="mx-auto mt-[22px] max-w-[760px] font-inter text-[clamp(16px,1.4vw,19px)] leading-normal text-ash">
-            I&rsquo;m Shishir Bhurtel. I build LLM agents and RAG pipelines that
-            hold up with real users — and the full-stack applications around
-            them: Python and FastAPI or Node.js and NestJS backends, React and
-            Next.js front ends. 3+ years in industry and 2 years freelancing.
+          <p className="mx-auto mt-[22px] max-w-[560px] font-inter text-[clamp(16px,1.4vw,19px)] leading-normal text-ash">
+            I&rsquo;m Shishir Bhurtel. I build LLM agents, RAG pipelines and the
+            full-stack apps around them.
           </p>
           {/* Hidden until its keys are set, so the hero never shows a dead chat */}
           {askConfigured() && <Ask />}

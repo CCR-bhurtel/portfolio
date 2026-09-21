@@ -65,8 +65,8 @@ export const railLinks = [
 export const askSuggestions = [
   "What AI agents has he built?",
   "What's his backend stack?",
-  "How does he keep LLM features reliable?",
   "Is he available for contract work?",
+  "How does he keep LLM features reliable?",
 ];
 
 export const focusAreas = [

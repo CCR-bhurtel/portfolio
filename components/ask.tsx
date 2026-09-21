@@ -6,6 +6,8 @@ import { askSuggestions, site } from "@/lib/content";
 // Mirrors lib/ask-config.ts; the server enforces both again
 const QUESTION_MAX = 300;
 const SESSION_MAX = 8;
+// The hero shows a single row; every suggestion is still pre-answered by ingest
+const HERO_CHIPS = 3;
 
 type Source = { title: string; href: string };
 type Message = {
@@ -105,15 +107,10 @@ export default function Ask() {
       >
         <label
           htmlFor="ask-hero"
-          className={`flex items-center justify-between gap-4 text-ash ${monoLabel}`}
+          className={`flex items-center justify-center gap-2.5 text-ash ${monoLabel}`}
         >
-          <span className="inline-flex items-center gap-2.5">
-            <span className="inline-block h-2 w-2 bg-accent" />
-            Ask my AI assistant
-          </span>
-          <span className="hidden text-smoke sm:inline">
-            Answers from my site &amp; resume
-          </span>
+          <span className="inline-block h-2 w-2 bg-accent" />
+          Ask my AI assistant
         </label>
         <div className="mt-3 flex rounded border-[1.5px] border-paper/25 bg-paper/[.04] backdrop-blur-sm transition-colors focus-within:border-accent-soft">
           <input
@@ -134,7 +131,7 @@ export default function Ask() {
           </button>
         </div>
         <ul className="mt-3 flex flex-wrap justify-center gap-2">
-          {askSuggestions.map((q) => (
+          {askSuggestions.slice(0, HERO_CHIPS).map((q) => (
             <li key={q}>
               <button
                 type="button"
