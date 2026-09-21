@@ -8,6 +8,7 @@ import {
   projects,
   roles,
   site,
+  stack,
   stats,
   toolkit,
 } from "@/lib/content";
@@ -84,6 +85,14 @@ export function buildChunks(): Chunk[] {
       `Where to find Shishir Bhurtel online: ${links
         .map((l) => `${l.label}: ${l.href}`)
         .join(", ")}. Resume: ${site.url}${site.resume}. Email: ${site.email}.`
+    ),
+
+    // The single most-asked question gets one passage that answers it whole
+    chunk(
+      "Services",
+      "Tech stack",
+      "#skills",
+      `Shishir's tech stack, the technologies and tools he works with. His backend stack: ${toolkit[3].items.join(", ")}. His AI and LLM stack: ${toolkit[0].items.join(", ")}, ${toolkit[1].items.join(", ")}. Everything he works with day to day: ${stack.join(", ")}.`
     ),
 
     ...toolkit.map((t) =>

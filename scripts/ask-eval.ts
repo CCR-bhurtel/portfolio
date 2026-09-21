@@ -9,7 +9,13 @@ import { missingCoreEnv } from "@/lib/ask-config";
 import { answerQuestion } from "@/lib/ask-pipeline";
 import { FALLBACK_ANSWER } from "@/lib/ask-prompt";
 
-type Case = { q: string; expect: "answer" | "fallback"; any?: string[]; none?: string[] };
+type Case = {
+  q: string;
+  expect: "answer" | "fallback";
+  any?: string[]; // at least one must appear
+  all?: string[]; // every one must appear
+  none?: string[];
+};
 
 async function main() {
   const missing = missingCoreEnv();
@@ -30,6 +36,9 @@ async function main() {
     if (c.expect === "answer" && isFallback) problems.push("expected an answer");
     if (c.expect === "answer" && c.any && !c.any.some((k) => text.includes(k))) {
       problems.push(`none of [${c.any.join(", ")}] in answer`);
+    }
+    for (const k of c.all ?? []) {
+      if (!text.includes(k)) problems.push(`missing "${k}"`);
     }
     for (const k of c.none ?? []) {
       if (text.includes(k)) problems.push(`must not contain "${k}"`);

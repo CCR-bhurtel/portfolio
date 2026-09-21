@@ -78,7 +78,24 @@ export function parseAnswer(raw: string, passageCount: number): ParsedAnswer | n
     .replace(/\s+([.,;:!?])/g, "$1")
     .replace(/\s{2,}/g, " ")
     .trim();
-  return text ? { text, cited } : null;
+  return text ? { text: dropTrailingHedge(text), cited } : null;
+}
+
+// The model likes to close with a remark about what it was not told ("details
+// of other projects aren't published"). Nothing in the context says that, so a
+// closing sentence of that shape is removed. Only the last sentence, and only
+// when it talks about details/information: "He doesn't publish his rates" stays.
+const HEDGE =
+  /\b(details?|specifics?|information|more)\b.*?(\bnot\b|n't\b|\bno\b).*?\b(listed|published|mentioned|provided|specified|available|covered|included|shared|disclosed)\b/i;
+
+export function dropTrailingHedge(text: string): string {
+  // Last sentence boundary: punctuation, space, capital. ("Spacebrain.ai" and
+  // "Node.js" have no space after the dot, so they don't split.)
+  const boundaries = [...text.matchAll(/[.!?]\s+(?=[A-Z])/g)];
+  const last = boundaries[boundaries.length - 1];
+  if (!last) return text;
+  const cut = last.index + 1;
+  return HEDGE.test(text.slice(cut)) ? text.slice(0, cut).trim() : text;
 }
 
 const numbersIn = (s: string) =>

@@ -45,7 +45,7 @@ the daily spend cap and the answer cache. It stays hidden until every variable i
 ```bash
 npm run ingest              # upload the knowledge base (after content changes)
 npm run ingest -- --dry-run # preview the chunks without uploading
-npm run ask:eval            # 28 questions through the real pipeline, a few cents
+npm run ask:eval            # 29 questions through the real pipeline, a few cents
 npm test                    # guards and knowledge-base unit tests
 ```
 

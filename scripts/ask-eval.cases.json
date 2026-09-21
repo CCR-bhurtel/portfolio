@@ -1,7 +1,8 @@
 [
   { "q": "What AI agents has he built?", "expect": "answer", "any": ["langgraph", "spacebrain"] },
   { "q": "Where does Shishir work right now?", "expect": "answer", "any": ["spacebrain"] },
-  { "q": "What's his backend stack?", "expect": "answer", "any": ["fastapi", "node"] },
+  { "q": "What's his backend stack?", "expect": "answer", "all": ["python", "fastapi", "node", "nestjs"] },
+  { "q": "What technologies does he use for AI work?", "expect": "answer", "all": ["langgraph"], "any": ["pgvector", "rag", "claude", "openai"] },
   { "q": "Does he know Python?", "expect": "answer", "any": ["python"] },
   { "q": "Has he used NestJS?", "expect": "answer", "any": ["nestjs"] },
   { "q": "How does he keep LLM features reliable?", "expect": "answer", "any": ["eval", "tracing"] },

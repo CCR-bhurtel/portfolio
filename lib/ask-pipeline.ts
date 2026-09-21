@@ -31,7 +31,7 @@ export type AskResult = {
   answer: string;
   sources: Source[];
   // How the answer was produced: useful in logs and in the eval
-  via: "smalltalk" | "cache" | "model" | "no-match" | "rejected" | "resting";
+  via: "smalltalk" | "cache" | "model" | "rejected" | "resting";
   topScore?: number;
   usage?: { input: number; output: number };
 };
@@ -204,11 +204,21 @@ export async function answerQuestion(
   const retrievalQuery = lastQuestion
     ? `${lastQuestion.text} ${question}`
     : question;
-  const matches = await withTimeout(
-    kb.search({ query: retrievalQuery, limit: ASK.topK, inputEnrichment: false }),
-    "retrieval"
-  );
-  const topScore = matches[0]?.score ?? 0;
+  const retrieve = () =>
+    withTimeout(
+      kb.search({ query: retrievalQuery, limit: ASK.topK, inputEnrichment: false }),
+      "retrieval"
+    );
+  let matches = await retrieve();
+  // Hybrid search over a populated index always returns something. Nothing
+  // means the index is briefly unavailable (seen right after a re-ingest), so
+  // it is an error to retry, never a "not covered" to show or cache.
+  if (matches.length === 0) {
+    await new Promise((r) => setTimeout(r, 400));
+    matches = await retrieve();
+  }
+  if (matches.length === 0) throw new Error("retrieval returned no results");
+  const topScore = matches[0].score;
 
   const remember = async (result: Cached, ttl: number) => {
     if (!cacheable) return;
@@ -219,11 +229,7 @@ export async function answerQuestion(
   };
 
   const usable = matches.filter((m) => m.content?.text && m.metadata);
-  if (usable.length === 0) {
-    const result = { answer: FALLBACK_ANSWER, sources: [] };
-    await remember(result, ASK.fallbackTtlSeconds);
-    return { ...result, via: "no-match", topScore };
-  }
+  if (usable.length === 0) throw new Error("retrieved documents have no text");
 
   // Fill the context budget in relevance order; always keep the best match
   const passages: SourcedPassage[] = [];

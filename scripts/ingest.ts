@@ -30,8 +30,8 @@ async function main() {
 
   const { kb } = getSearch();
 
-  // Reset rather than diff: ids of deleted content must not linger
-  await kb.reset().catch(() => {}); // the index does not exist on a first run
+  // Update in place, then remove what no longer exists. Resetting the index
+  // instead leaves it returning nothing for a minute, to live visitors too.
   await kb.upsert(
     chunks.map((c) => ({
       id: c.id,
@@ -39,14 +39,32 @@ async function main() {
       metadata: c.metadata,
     }))
   );
+  const keep = new Set(chunks.map((c) => c.id));
+  const stale: string[] = [];
+  let cursor = "0";
+  do {
+    const page = await kb.range({ cursor, limit: 100 });
+    stale.push(...page.documents.map((d) => d.id).filter((id) => !keep.has(id)));
+    cursor = page.nextCursor;
+  } while (cursor && cursor !== "0");
+  if (stale.length) await kb.delete(stale);
 
-  // Embedding happens on Upstash's side; wait until everything is searchable
-  for (let i = 0; i < 40; i++) {
+  // Embedding happens on Upstash's side. "Nothing pending" is not enough: wait
+  // until searches answer several times in a row.
+  let stable = 0;
+  for (let i = 0; i < 90 && stable < 5; i++) {
     const info = await kb.info();
-    if (info.pendingDocumentCount === 0 && info.documentCount >= chunks.length) break;
+    const hits =
+      info.pendingDocumentCount === 0
+        ? await kb.search({ query: askSuggestions[i % askSuggestions.length], limit: 1, inputEnrichment: false })
+        : [];
+    stable = hits.length ? stable + 1 : 0;
     await sleep(1000);
   }
-  console.log(`Uploaded ${chunks.length} chunks (~${total} tokens).`);
+  if (stable < 5) throw new Error("The search index did not become searchable in time. Run the ingest again.");
+  console.log(
+    `Uploaded ${chunks.length} chunks (~${total} tokens), removed ${stale.length} stale.`
+  );
 
   if (missingAskEnv().length) {
     console.log(
@@ -61,9 +79,14 @@ async function main() {
   console.log(`Cache version ${version}.`);
 
   // The chips are the most-asked questions: answer them once, now
+  let unanswered = 0;
   for (const question of askSuggestions) {
     const r = await answerQuestion({ question, history: [] }, null);
-    console.log(`\nQ: ${question}\n[${r.via}, score ${r.topScore?.toFixed(3)}] ${r.answer}`);
+    if (r.via !== "model" && r.via !== "cache") unanswered++;
+    console.log(`\nQ: ${question}\n[${r.via}] ${r.answer}`);
+  }
+  if (unanswered) {
+    throw new Error(`${unanswered} suggested question(s) got no real answer. Fix the content or the question, then ingest again.`);
   }
 }
 

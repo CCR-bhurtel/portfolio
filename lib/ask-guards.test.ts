@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  dropTrailingHedge,
   normalizeQuestion,
   numbersAreGrounded,
   parseAnswer,
@@ -59,6 +60,28 @@ test("parseAnswer requires a valid citation and strips markers", () => {
     cited: [2],
   });
   assert.deepEqual(parseAnswer("Yes [1][3].", 4), { text: "Yes.", cited: [1, 3] });
+});
+
+test("dropTrailingHedge removes only a closing remark about missing details", () => {
+  assert.equal(
+    dropTrailingHedge("He built agents at Spacebrain.ai. The specific details of other client projects aren't published."),
+    "He built agents at Spacebrain.ai."
+  );
+  assert.equal(
+    dropTrailingHedge("He uses LangGraph. More information is not available in his portfolio."),
+    "He uses LangGraph."
+  );
+  assert.equal(
+    dropTrailingHedge("He built agents. The specific details of other agent projects beyond Spacebrain.ai are not published."),
+    "He built agents."
+  );
+  // Legitimate answers keep every sentence
+  const rates = "Shishir does not publish his rates. Email him with a short description of the project.";
+  assert.equal(dropTrailingHedge(rates), rates);
+  const single = "Exact details are not published.";
+  assert.equal(dropTrailingHedge(single), single);
+  const versions = "He uses Node.js and Next.js. He deploys with Docker on AWS.";
+  assert.equal(dropTrailingHedge(versions), versions);
 });
 
 test("numbersAreGrounded rejects invented figures", () => {

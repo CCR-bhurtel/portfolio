@@ -123,7 +123,7 @@ export default function Ask() {
             maxLength={QUESTION_MAX}
             autoComplete="off"
             placeholder="Ask anything about me…"
-            className="min-w-0 flex-1 bg-transparent px-4 py-[15px] font-inter text-base text-paper outline-none placeholder:text-smoke"
+            className="min-w-0 flex-1 bg-transparent px-4 py-[15px] font-inter text-base text-paper outline-none focus-visible:outline-none placeholder:text-smoke"
           />
           <button
             type="submit"
@@ -262,7 +262,7 @@ export default function Ask() {
                 autoComplete="off"
                 aria-label="Your question"
                 placeholder="Ask a follow-up…"
-                className="min-w-0 flex-1 bg-transparent px-4 py-3 font-inter text-base outline-none placeholder:text-ash"
+                className="min-w-0 flex-1 bg-transparent px-4 py-3 font-inter text-base outline-none focus-visible:outline-none placeholder:text-ash"
               />
               <button
                 type="submit"
