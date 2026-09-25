@@ -53,3 +53,16 @@ Knowledge comes from `lib/content.ts` plus `content/extra.md`. Limits, model and
 cache settings live in `lib/ask-config.ts`. An answer is only shown if it cites the
 retrieved passages and every number in it appears in them; otherwise the visitor
 gets a "not covered, email me" reply.
+
+## Private learning roadmaps (`/learn`)
+
+A roadmap.sh-style tracker, visible only to me: every page and action checks a
+cookie set by logging in with `LEARN_PASSWORD`. Ticks are stored in the same
+Upstash Redis (`learn:progress:<slug>`), so they sync across devices. Not linked
+from the site, not in the sitemap, and served with `noindex`.
+
+Roadmaps are typed data in `lib/learn/` (types in `lib/learn/model.ts`). To add
+one, create a folder like `lib/learn/ai-systems-architect/` and register it in
+`roadmaps` in `lib/learn/server.ts` and in `lib/learn.test.ts`. Item ids are
+slugs of their titles, so rewording an item resets its tick unless you give it
+an `id`.

@@ -88,6 +88,18 @@ body:has(dialog[open]) {
   backdrop-filter: blur(6px);
 }
 
+/* /learn topic drawer, pinned to the right */
+.learn-drawer {
+  animation: slideIn 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.learn-drawer::backdrop {
+  background: rgba(11, 13, 14, 0.55);
+  backdrop-filter: blur(4px);
+}
+.learn-drawer-body {
+  animation: fadeIn 0.25s ease both;
+}
+
 .rail-scroll {
   scrollbar-width: thin;
   scrollbar-color: #2c3237 transparent;
@@ -97,6 +109,26 @@ body:has(dialog[open]) {
   from {
     opacity: 0;
     transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(48px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
